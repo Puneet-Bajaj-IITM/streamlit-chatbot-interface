@@ -1,8 +1,9 @@
-from openai import OpenAI
+import easyllm
 import streamlit as st
 from dotenv import load_dotenv
 import os
 import shelve
+from easyllm.clients import huggingface
 
 load_dotenv()
 
@@ -10,11 +11,14 @@ st.title("Streamlit Chatbot Interface")
 
 USER_AVATAR = "👤"
 BOT_AVATAR = "🤖"
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+from easyllm.clients import huggingface
+
+huggingface.api_key="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"
+huggingface.prompt_builder = "llama2"
 
 # Ensure openai_model is initialized in session state
 if "openai_model" not in st.session_state:
-    st.session_state["openai_model"] = "gpt-3.5-turbo"
+    st.session_state["openai_model"] = "meta-llama/Llama-2-70b-chat-hf"
 
 
 # Load chat history from shelve file
